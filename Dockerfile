@@ -34,7 +34,8 @@ RUN set -ex \
     imagemagick-dev \
     git \
     bash \
-    tzdata
+    tzdata \
+    nodejs
 
 RUN adduser -D luser
 ARG HOMEDIR=/home/luser
