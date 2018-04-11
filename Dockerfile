@@ -56,7 +56,7 @@ RUN set -ex \
 
 # Install rubies
 ENV PATH=${HOMEDIR}/.rbenv/bin:${HOMEDIR}/.rbenv/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ARG RUBIES="2.2.6 2.2.7 2.3.3 2.3.4 2.4.0 2.4.1"
+ARG RUBIES="2.2.6 2.2.7 2.3.3 2.3.4 2.3.7 2.4.0 2.4.1 2.4.4 2.5.1"
 RUN set -ex ; \
   for version in $RUBIES ; do \
     rbenv install $version ; \
