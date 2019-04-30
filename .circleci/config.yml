@@ -1,5 +1,5 @@
 defaults: &defaults
-  working_directory: /decrypt_env
+  working_directory: /multiruby
   docker:
     - image: deliveroo/circleci:0.1.8
 
@@ -13,18 +13,7 @@ jobs:
 
       - setup_remote_docker:
           reusable: true
-          version: 17.05.0-ce
-
-      - checkout
-
-      - run:
-          name: Build production image
-          command: build.sh
-
-  build_and_push:
-
-      - setup_remote_docker:
-          reusable: true
+          docker_layer_caching: true
           version: 17.05.0-ce
 
       - checkout
@@ -33,18 +22,30 @@ jobs:
           name: Build production image
           command: ./build.sh
 
+  push:
+    <<: *defaults
+
+    steps:
+
+      - setup_remote_docker:
+          reusable: true
+          docker_layer_caching: true
+          version: 17.05.0-ce
+
       - run:
-          name: Tag the git commit
-          command: tag_and_push.sh
+          name: Tag the git commit and push the image
+          command: ./tag_and_push.sh
 
 workflows:
   version: 2
-  build:
-  - build
 
   build_and_push:
-  - build_and_push:
-      filters:
-        branches:
-          only:
-            - master
+    jobs:
+      - build
+      - push:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
