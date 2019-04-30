@@ -1,0 +1,50 @@
+defaults: &defaults
+  working_directory: /decrypt_env
+  docker:
+    - image: deliveroo/circleci:0.1.8
+
+version: 2
+
+jobs:
+  build:
+    <<: *defaults
+
+    steps:
+
+      - setup_remote_docker:
+          reusable: true
+          version: 17.05.0-ce
+
+      - checkout
+
+      - run:
+          name: Build production image
+          command: build.sh
+
+  build_and_push:
+
+      - setup_remote_docker:
+          reusable: true
+          version: 17.05.0-ce
+
+      - checkout
+
+      - run:
+          name: Build production image
+          command: ./build.sh
+
+      - run:
+          name: Tag the git commit
+          command: tag_and_push.sh
+
+workflows:
+  version: 2
+  build:
+  - build
+
+  build_and_push:
+  - build_and_push:
+      filters:
+        branches:
+          only:
+            - master
