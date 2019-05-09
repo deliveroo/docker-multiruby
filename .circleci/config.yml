@@ -22,6 +22,19 @@ jobs:
           name: Build production image
           command: ./build.sh
 
+      - run:
+          name: Save CI Image
+          command: |
+            mkdir -p workspace
+            IMAGE=deliveroo/multiruby:$(cat VERSION)
+            FILE=workspace/multiruby-$(cat VERSION).tar
+            docker save "$IMAGE" --output "$FILE"
+
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - "*.tar"
+
   push:
     <<: *defaults
 
@@ -33,6 +46,15 @@ jobs:
           version: 17.05.0-ce
 
       - checkout
+
+      - attach_workspace:
+          at: workspace
+
+      - run:
+          name: Load image
+          command: |
+            FILE=workspace/multiruby-$(cat VERSION).tar
+            docker load --input "$FILE"
 
       - run:
           name: Tag the git commit and push the image
