@@ -32,6 +32,8 @@ jobs:
           docker_layer_caching: true
           version: 17.05.0-ce
 
+      - checkout
+
       - run:
           name: Tag the git commit and push the image
           command: ./tag_and_push.sh
