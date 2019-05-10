@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-set -euo pipefail
+set -xeuo pipefail
+
 VERSION=$(cat VERSION)
 IMAGE=deliveroo/multiruby:"$VERSION"
 
