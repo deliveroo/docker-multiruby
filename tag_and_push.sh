@@ -1,5 +1,5 @@
-#!/usr/bin/env sh
-set -euo pipefail
+#!/usr/bin/env bash
+set -eu
 
 VERSION=$(cat VERSION)
 IMAGE=deliveroo/multiruby:"$VERSION"
@@ -9,8 +9,4 @@ IMAGE=deliveroo/multiruby:"$VERSION"
 git tag "$VERSION"
 git push --tags
 
-# Log in to Docker repository
-docker login -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
-
-# Push the image
-docker push "$IMAGE"
+push_image_to_docker_hub "$IMAGE"
