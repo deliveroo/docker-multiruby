@@ -61,7 +61,8 @@ RUN set -ex ; \
   for version in $RUBIES ; do \
     rbenv install $version ; \
     rbenv local $version ; \
-    gem install bundler ; \
+    gem install bundler --version '>= 2.0'; \
+    gem install bundler --version '< 2.0'; \
   done ; \
   rbenv local --unset ;
 

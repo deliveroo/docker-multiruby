@@ -1,5 +1,9 @@
 # Changelog
 
+## 2019.06.03
+
+* [SRE-1003] Ensure that Bundler 1.x and 2.x are installed
+
 ## 2019.05.23
 
 Rebuild with no changes apart from Alpine packages
