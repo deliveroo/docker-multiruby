@@ -9,9 +9,7 @@ Dockerfile.
 ## Downstream users
 
 This base image is currently used by these projects for their tests in CI:-
-* `gdproo`
 * `routemaster-drain`
-* `roo_on_rails`
 
 ## Ruby versions
 
