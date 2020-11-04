@@ -15,7 +15,7 @@ global_dockerhub_auth: &global_dockerhub_auth
 defaults: &defaults
   working_directory: /multiruby
   docker:
-    - image: deliveroo/circleci:0.2.8
+    - image: deliveroo/circleci:0.4.2
       <<: *global_dockerhub_auth
 version: 2
 jobs:
